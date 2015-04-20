@@ -1,0 +1,22 @@
+{
+	"name" : "nicohaase/facebookpostinghelper",
+	"repositories" : [{
+			"type" : "pear",
+			"url" : "pear.php.net"
+		}
+	],
+	"require" : {
+		"facebook/php-sdk-v4" : "~4.0",
+		"pear-pear.php.net/config_lite" : "*"
+	},
+	"authors" : [{
+			"name" : "Nico Haase",
+			"email" : "nico@nicohaase.de"
+		}
+	],
+	"autoload" : {
+		"psr-4" : {
+			"FacebookPostingHelper\\" : "FacebookPostingHelper/"
+		}
+	}
+}
