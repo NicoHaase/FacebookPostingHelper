@@ -44,7 +44,7 @@ class FacebookPostingHelper
             return $this->config->get($section, $key);
         }
         if($showError) {
-            throw new Exception(sprintf('Missing key %s in  section %s', $key, $section));
+            throw new Exception(sprintf('Missing key %s in section %s', $key, $section));
         }
     }
 
@@ -98,10 +98,10 @@ class FacebookPostingHelper
         $postData = array(
             'access_token' => $this->getPageAccessToken(),
             'name' => 'Test',
-            'message' => 'Message'
+            'message' => 'Message',
+			'link' => 'http://www.google.com',
+			'caption' => 'Test caption'
         );
-        // 'link' => 'http://www.buchtips.net/',
-        // 'caption' => 'Test'
         
         $request = new FacebookRequest($appSession, 'POST', '/' . $this->getPageId() . '/feed', $postData);
         $page_post = $request->execute()
