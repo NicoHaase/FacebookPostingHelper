@@ -1,17 +1,18 @@
 {
-	"name" : "nicohaase/facebookpostinghelper",
-	"require" : {
-		"facebook/php-sdk-v4" : "~4.0",
-        "pear/config_lite": "dev-master"
-	},
-	"authors" : [{
-			"name" : "Nico Haase",
-			"email" : "nico@nicohaase.de"
-		}
-	],
-	"autoload" : {
-		"psr-4" : {
-			"FacebookPostingHelper\\" : "FacebookPostingHelper/"
-		}
-	}
+  "name": "nicohaase/facebookpostinghelper",
+  "require": {
+    "facebook/php-sdk-v4": "~4.0",
+    "piwik/ini": "1.0.4"
+  },
+  "authors": [
+    {
+      "name": "Nico Haase",
+      "email": "nico@nicohaase.de"
+    }
+  ],
+  "autoload": {
+    "psr-4": {
+      "FacebookPostingHelper\\": "FacebookPostingHelper/"
+    }
+  }
 }

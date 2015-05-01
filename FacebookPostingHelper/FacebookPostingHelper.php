@@ -1,7 +1,8 @@
 <?php
 namespace FacebookPostingHelper;
 
-use Config_Lite;
+use Piwik\Ini\IniReader;
+use Piwik\Ini\IniWriter;
 use Facebook\FacebookSession;
 use Facebook\FacebookRedirectLoginHelper;
 use Facebook\FacebookRequest;
@@ -17,7 +18,7 @@ class FacebookPostingHelper
 
     /**
      *
-     * @var Config_Lite
+     * @var string[]
      */
     private $config;
 
@@ -30,18 +31,20 @@ class FacebookPostingHelper
 
     public function readConfig()
     {
-        $this->config = new Config_Lite($this->configFilename);
+        $reader = new IniReader();
+        $this->config = $reader->readFile($this->configFilename);
     }
 
     public function writeConfig()
     {
-        $this->config->save();
+        $writer = new IniWriter();
+        $writer->writeToFile($this->configFilename, $this->config);
     }
 
     private function getFromConfig($section, $key, $showError = false)
     {
-        if ($this->config->has($section, $key)) {
-            return $this->config->get($section, $key);
+        if(isset($this->config[$section]) && isset($this->config[$section][$key])) {
+            return $this->config[$section][$key];
         }
         if($showError) {
             throw new Exception(sprintf('Missing key %s in section %s', $key, $section));
@@ -131,7 +134,10 @@ class FacebookPostingHelper
         if (isset($session)) {
             $userAccessToken = $session->getToken();
             $pageAccessToken = $this->getPageAccessTokenFromUserAccessToken($userAccessToken);
-            $this->config->set('authorization', 'pageAccessToken', $pageAccessToken);
+            if(!isset($this->config['authorization']) || !is_array($this->config['authorization'])) {
+                $this->config['authorization'] = array();
+            }
+            $this->config['authorization']['pageAccessToken'] = $pageAccessToken;
             $this->writeConfig();
             return true;
         } else {
