@@ -92,22 +92,27 @@ class FacebookPostingHelper
         return $isValid;
     }
 
-    public function post()
+    public function post($postMessage, $link = null, $caption = null)
     {
         $appSession = $this->getAppSession();
         $postData = array(
             'access_token' => $this->getPageAccessToken(),
-            'name' => 'Test',
-            'message' => 'Message',
-			'link' => 'http://www.google.com',
-			'caption' => 'Test caption'
+            'message' => $postMessage
         );
-        
+
+        if(is_null($link) === false) {
+            $postData['link'] = $link;
+        }
+
+        if(is_null($caption) === false) {
+            $postData['caption'] = $caption;
+        }
+
         $request = new FacebookRequest($appSession, 'POST', '/' . $this->getPageId() . '/feed', $postData);
         $page_post = $request->execute()
             ->getGraphObject()
             ->asArray();
-        echo '<pre>' . var_export($page_post, true) . '</pre>';
+        return $page_post['id'];
     }
 
     public function performLogin()

@@ -1,8 +1,10 @@
 <?php
 include_once 'vendor/autoload.php';
 
-use FacebookPostingTool\FacebookPostingTool;
+use FacebookPostingHelper\FacebookPostingHelper;
 
-$facebookPostingHelper = new FacebookPostingTool('options.ini');
+$facebookPostingHelper = new FacebookPostingHelper('options.ini');
 
-$facebookPostingHelper->post();
+$postId = $facebookPostingHelper->post('Message for my first posting');
+
+echo 'Posting was saved with ID ' . $postId;
