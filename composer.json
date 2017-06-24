@@ -1,8 +1,8 @@
 {
   "name": "nicohaase/facebookpostinghelper",
   "require": {
-    "facebook/php-sdk-v4": "~4.0",
-    "piwik/ini": "1.0.4"
+    "facebook/graph-sdk": "~5.5.0",
+    "piwik/ini": "1.0.6"
   },
   "authors": [
     {
