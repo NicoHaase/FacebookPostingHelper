@@ -1,5 +1,6 @@
 {
   "name": "nicohaase/facebookpostinghelper",
+  "license": "LGPL-3.0",
   "require": {
     "facebook/graph-sdk": "~5.5.0",
     "piwik/ini": "1.0.6"
