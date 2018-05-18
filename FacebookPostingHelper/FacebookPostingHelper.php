@@ -97,7 +97,7 @@ class FacebookPostingHelper
         return new Facebook([
             'app_id'     => $this->getAppId(),
             'app_secret' => $this->getAppSecret(),
-            'default_graph_version' => 'v2.9',
+            'default_graph_version' => 'v2.12',
         ]);
     }
 
