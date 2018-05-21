@@ -1,4 +1,5 @@
 <?php
+
 namespace FacebookPostingHelper;
 
 use Facebook\Exceptions\FacebookSDKException;
@@ -49,10 +50,10 @@ class FacebookPostingHelper
      */
     private function getFromConfig($section, $key, $showError = false)
     {
-        if(isset($this->config[$section]) && isset($this->config[$section][$key])) {
+        if (isset($this->config[$section]) && isset($this->config[$section][$key])) {
             return $this->config[$section][$key];
         }
-        if($showError) {
+        if ($showError) {
             throw new \Exception(sprintf('Missing key %s in section %s', $key, $section));
         }
     }
@@ -95,7 +96,7 @@ class FacebookPostingHelper
     public function getAppSession()
     {
         return new Facebook([
-            'app_id'     => $this->getAppId(),
+            'app_id' => $this->getAppId(),
             'app_secret' => $this->getAppSecret(),
             'default_graph_version' => 'v2.12',
         ]);
@@ -159,9 +160,14 @@ class FacebookPostingHelper
         return $response->getGraphNode()->getField('id');
     }
 
+    private function isSecureRequest()
+    {
+        return (!empty($_SERVER['HTTPS']) && $_SERVER['HTTPS'] !== 'off') || $_SERVER['SERVER_PORT'] == 443;
+    }
+
     public function performLogin()
     {
-        $protocol = stripos($_SERVER['SERVER_PROTOCOL'], 'https') === true ? 'https://' : 'http://';
+        $protocol = $this->isSecureRequest() ? 'https://' : 'http://';
         $server = $_SERVER['HTTP_HOST'];
         $relativePath = $_SERVER['PHP_SELF'];
         $myUrl = $protocol . $server . $relativePath;
