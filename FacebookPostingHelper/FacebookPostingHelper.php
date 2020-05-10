@@ -4,8 +4,8 @@ namespace FacebookPostingHelper;
 
 use Facebook\Exceptions\FacebookSDKException;
 use Facebook\Facebook;
-use Piwik\Ini\IniReader;
-use Piwik\Ini\IniWriter;
+use Matomo\Ini\IniReader;
+use Matomo\Ini\IniWriter;
 
 class FacebookPostingHelper
 {
