@@ -11,7 +11,7 @@ Posting to a page is easy - as long as you start your browser and write the post
  - Create an option file to keep your configuration (see example/options.ini for an example file), make it writeable through your web server
  - Get the package through composer, dependency:
 
-  ````"nicohaase/facebookpostinghelper": "dev-master"````
+  ````"nicohaase/facebookpostinghelper": "^1.0"````
   
 - Write your code around the FacebookPostingHelper
   - You need to perform the authorization in your browser (see example/performLogin.php), as fiddling around with tokens is confusing!
