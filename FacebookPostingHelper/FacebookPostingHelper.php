@@ -98,7 +98,7 @@ class FacebookPostingHelper
         return new Facebook([
             'app_id' => $this->getAppId(),
             'app_secret' => $this->getAppSecret(),
-            'default_graph_version' => 'v7.0',
+            'default_graph_version' => 'v13.0',
         ]);
     }
 
@@ -180,18 +180,25 @@ class FacebookPostingHelper
 
         if ($userAccessToken) {
             $oauth2Client = $facebookSession->getOAuth2Client();
-            $pageAccessToken = $oauth2Client->getLongLivedAccessToken($userAccessToken);
+            $longLivedAccessToken = $oauth2Client->getLongLivedAccessToken($userAccessToken);
+
+            $pageAccessTokenResponse = $facebookSession->get('/' . $this->getPageId() . '?fields=access_token', $longLivedAccessToken);
+            $pageAccessToken = $pageAccessTokenResponse->getDecodedBody()['access_token'];
+
             if (!isset($this->config['authorization']) || !is_array($this->config['authorization'])) {
                 $this->config['authorization'] = array();
             }
-            $this->config['authorization']['pageAccessToken'] = $pageAccessToken->getValue();
+
+            $this->config['authorization']['pageAccessToken'] = $pageAccessToken;
             $this->writeConfig();
+
             return true;
         } else {
             header('Location: ' . $helper->getLoginUrl($myUrl, array(
                     'public_profile',
-                    'manage_pages',
-                    'publish_pages'
+                    'pages_manage_posts',
+                    'pages_read_engagement',
+                    'pages_show_list',
                 )));
             return false;
         }
